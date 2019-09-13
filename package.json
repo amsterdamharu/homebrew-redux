@@ -1,0 +1,21 @@
+{
+  "name": "homebrew-redux",
+  "version": "0.0.1",
+  "description": "redux and react-redux functions",
+  "main": "./index.js",
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "keywords": [
+    "example",
+    "hooks",
+    "react",
+    "redux",
+    "react-redux"
+  ],
+  "author": "Harm Meijer",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.8.6"
+  }
+}

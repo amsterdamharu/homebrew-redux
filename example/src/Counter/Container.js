@@ -10,7 +10,7 @@ const createCounterState = () =>
     ({ count, id }) => ({ b: count, id })
   );
 
-export default function(props) {
+export default function CounterContainer(props) {
   const createState = useMemo(createCounterState, []);
   const dispatch = useDispatch();
   const { ID: id } = props;

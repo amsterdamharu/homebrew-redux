@@ -66,7 +66,7 @@ An example of how it's created can be found [here](https://github.com/amsterdamh
 
 ### useSelector
 
-The [useSelector](https://github.com/amsterdamharu/homebrew-redux/blob/master/store/index.js#L52) hook is returned from [createStore](#createStore). With useSelector you can select information from the store, it is simular to [react-redux useSelector](https://react-redux.js.org/next/api/hooks#useselector) but it doesn't take the second argument (equality function) to memoize you can use createSelector from [reselect](https://github.com/reduxjs/reselect).
+The [useSelector](https://github.com/amsterdamharu/homebrew-redux/blob/master/store/index.js#L52) hook is returned from [createStore](#createStore). With useSelector you can select information from the store, it is simular to [react-redux useSelector](https://react-redux.js.org/next/api/hooks#useselector) but it doesn't take the second argument (equality function), to memoize you can use createSelector from [reselect](https://github.com/reduxjs/reselect).
 
 Examples of how it's used can be fount [here](https://github.com/amsterdamharu/homebrew-redux/blob/master/example/src/Counters/container.js#L8) and [here](https://github.com/amsterdamharu/homebrew-redux/blob/master/example/src/Counter/Container.js#L17)
 

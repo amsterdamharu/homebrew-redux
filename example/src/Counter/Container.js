@@ -13,18 +13,18 @@ const createCounterState = () =>
 export default function CounterContainer(props) {
   const createState = useMemo(createCounterState, []);
   const dispatch = useDispatch();
-  const { ID: id } = props;
+  const { ID } = props;
   const state = useSelector(state => {
-    return createState(state, id);
+    return createState(state, ID);
   });
   const mergedState = useMemo(
     () => ({
       ...state,
-      up: () => dispatch(up(id)),
-      down: () => dispatch(down(id)),
-      remove: () => dispatch(remove(id)),
+      up: () => dispatch(up(ID)),
+      down: () => dispatch(down(ID)),
+      remove: () => dispatch(remove(ID)),
     }),
-    [state, id, dispatch]
+    [state, ID, dispatch]
   );
   return useMemo(() => Counter(mergedState), [mergedState]);
 }

@@ -1,4 +1,3 @@
-//copy of ../store/index.js
 import React, {
   createContext,
   useContext,
@@ -59,23 +58,12 @@ export const createStore = (reducer, notUsed, enhancer) => {
 export const applyMiddleware = (...functions) => {
   return createStore => (reducer, notUsed, enhancer) => {
     const store = createStore(reducer, undefined, enhancer);
+    const dispatch = compose(
+      ...functions.map(fn => fn(store))
+    )(store.dispatch);
     return {
       ...store,
-      dispatch: action => {
-        return functions
-          .map(fn =>
-            fn({
-              getState: store.getState,
-              dispatch: store.dispatch,
-            })
-          )
-          .concat(() => action => store.dispatch(action))
-          .reverse()
-          .reduce(
-            (result, fn) => action => fn(result)(action),
-            next => action => next(action)
-          )(action);
-      },
+      dispatch,
     };
   };
 };

@@ -16,14 +16,16 @@ const rootReducer = (state = initialState, action) => {
 };
 
 const middleware = compose(
-  applyMiddleware(() => next => action => {
-    console.log('first in middleware');
-    return next({ ...action, extra: 88888888 });
-  }),
-  applyMiddleware(() => next => action => {
-    console.log('second, action:', action);
-    return next(action);
-  }),
+  applyMiddleware(
+    () => next => action => {
+      console.log('first in middleware');
+      return next({ ...action, extra: 88888888 });
+    },
+    () => next => action => {
+      console.log('second, action:', action);
+      return next(action);
+    }
+  ),
   applyMiddleware(store => next => action => {
     console.log('third action:', action);
     if (!action.sync) {

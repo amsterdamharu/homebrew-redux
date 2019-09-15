@@ -1,7 +1,7 @@
 import { counterReducer } from '../Counter';
 import { counterActions } from '../Counter';
 import { ADD, NONE } from './actions';
-const { UP, DOWN, REMOVE } = counterActions;
+const { NAMESPACE: COUNTER } = counterActions;
 const createId = (i => () => i++)(10);
 export default (state, action) => {
   const { type } = action;
@@ -17,7 +17,7 @@ export default (state, action) => {
   if (type === NONE) {
     return { ...state };
   }
-  if ([UP, DOWN, REMOVE].includes(action.type)) {
+  if (action.type.startsWith(COUNTER)) {
     return counterReducer(state, action);
   }
   return state;

@@ -21,12 +21,19 @@ export const createStore = (reducer, notUsed, enhancer) => {
     let value = reducer(undefined, {
       type: `@@redux/INIT ${new Date().getTime()}`,
     });
-    let setValue = newValue => {
+    const callListeners = newValue => {
+      Promise.resolve().then(() => {
+        if (newValue === value) {
+          listeners.forEach(listener => listener(value));
+        }
+      });
+    };
+    const setValue = newValue => {
       if (value === newValue) {
         return;
       }
       value = newValue;
-      listeners.forEach(listener => listener(value));
+      callListeners(newValue);
     };
     const s = {
       getState: () => value,

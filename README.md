@@ -44,6 +44,7 @@ const middleware = compose(
   applyMiddleware(
     () => next => action => {
       console.log('middleware');
+      return next(action);
     }
   ),
   //If redux dev tools is not installed as Chrome extension

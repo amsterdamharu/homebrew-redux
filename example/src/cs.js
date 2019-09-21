@@ -85,7 +85,12 @@ export const createStoreProvider = store => ({
   const [state, setState] = useState(store.getState());
   useEffect(() => {
     const remove = store.subscribe(() => {
-      setState(store.getState());
+      const lastState = store.getState();
+      Promise.resolve().then(() => {
+        if (lastState === store.getState()) {
+          setState(store.getState());
+        }
+      });
     });
     return () => remove();
   }, []);

@@ -2,7 +2,7 @@
 
 ### Install
 
-I would not advice you to use this in projects since it is in development as created as a learning exercise for me, that's why it's not on nmp.
+I would not advice you to use this in projects since it is in development and created as a learning exercise for me, that's why it's not on nmp.
 
 You can add a github dependency with yarn using the following command:
 

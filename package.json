@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "redux and react-redux functions",
   "main": "./index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/babel store/index.js --out-file index.js"
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -15,7 +18,13 @@
   ],
   "author": "Harm Meijer",
   "license": "ISC",
-  "dependencies": {
+  "peerDependencies": {
     "react": "^16.8.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-react": "^7.0.0"
   }
 }

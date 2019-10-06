@@ -3,7 +3,7 @@ import {
   createStore,
   createStoreProvider,
   applyMiddleware,
-} from './cs';
+} from 'homebrew-redux';
 import { countersReducer } from './Counters';
 const initialState = {
   counters: [...new Array(2)].map((_, id) => ({

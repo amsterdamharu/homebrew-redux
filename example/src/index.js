@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { StoreProvider } from './store';
+import { Provider } from './store';
 import './index.css';
 import { CountersContainer } from './Counters';
 import { TotalContainer } from './TotalCounters';
 
 ReactDOM.render(
-  <StoreProvider>
+  <Provider>
     <TotalContainer />
     <CountersContainer />
-  </StoreProvider>,
+  </Provider>,
   document.getElementById('root')
 );

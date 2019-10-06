@@ -51,5 +51,5 @@ const { store, useSelector, useDispatch } = createStore(
   middleware
 );
 
-export const StoreProvider = createStoreProvider(store);
+export const Provider = createStoreProvider(store);
 export { useSelector, useDispatch };

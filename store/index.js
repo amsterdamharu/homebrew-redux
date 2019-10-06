@@ -6,18 +6,18 @@ import React, {
 } from 'react';
 
 const StoreContext = createContext();
-//do not try to use initial state, redux dev tools won't
-//  pass it along so have to adjust the signature to how
-//  dev tools will call it
-export const createStore = (reducer, notUsed, enhancer) => {
+export const createStore = (
+  reducer,
+  initialState,
+  enhancer
+) => {
   let listeners = [];
+  const wrapReducer = (state = initialState, action) =>
+    reducer(state, action);
   const createStore = (reducer, notUsed, enhancer) => {
     if (typeof enhancer === 'function') {
       return enhancer(createStore)(reducer);
     }
-    //even if you pass initial state and call reducer
-    //  dev tools will flip and crash if it's anything
-    //  but undefined
     let value = reducer(undefined, {
       type: `@@redux/INIT ${new Date().getTime()}`,
     });
@@ -44,7 +44,11 @@ export const createStore = (reducer, notUsed, enhancer) => {
     };
     return s;
   };
-  const store = createStore(reducer, undefined, enhancer);
+  const store = createStore(
+    wrapReducer,
+    undefined,
+    enhancer
+  );
 
   return {
     useDispatch: () => store.dispatch,

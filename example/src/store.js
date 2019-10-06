@@ -11,7 +11,7 @@ const initialState = {
     id,
   })),
 };
-const rootReducer = (state = initialState, action) => {
+const rootReducer = (state, action) => {
   return countersReducer(state, action);
 };
 
@@ -47,7 +47,7 @@ const middleware = compose(
 
 const { store, useSelector, useDispatch } = createStore(
   rootReducer,
-  undefined,
+  initialState,
   middleware
 );
 

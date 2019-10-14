@@ -104,3 +104,18 @@ export const createStoreProvider = store => ({
     </StoreContext.Provider>
   );
 };
+//@todo: document combineReducers and test it (only rough idea of how it should work)
+//  https://redux.js.org/api/combinereducers#combinereducersreducers
+export const combineReducers = reducers =>
+  function combinedReducers(state, action) {
+    return {
+      ...state,
+      ...Object.entries(reducers).reduce(
+        (result, [key, reducer]) => ({
+          ...result,
+          [key]: reducer(state, action),
+        }),
+        {}
+      ),
+    };
+  };

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createStoreProvider = exports.compose = exports.applyMiddleware = exports.createStore = void 0;
+exports.combineReducers = exports.createStoreProvider = exports.compose = exports.applyMiddleware = exports.createStore = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -162,6 +162,22 @@ var createStoreProvider = function createStoreProvider(store) {
       value: state
     }, children);
   };
-};
+}; //@todo: document combineReducers and test it (only rough idea of how it should work)
+//  https://redux.js.org/api/combinereducers#combinereducersreducers
+
 
 exports.createStoreProvider = createStoreProvider;
+
+var combineReducers = function combineReducers(reducers) {
+  return function combinedReducers(state, action) {
+    return _objectSpread({}, state, {}, Object.entries(reducers).reduce(function (result, _ref2) {
+      var _ref3 = _slicedToArray(_ref2, 2),
+          key = _ref3[0],
+          reducer = _ref3[1];
+
+      return _objectSpread({}, result, _defineProperty({}, key, reducer(state, action)));
+    }, {}));
+  };
+};
+
+exports.combineReducers = combineReducers;

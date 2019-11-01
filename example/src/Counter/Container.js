@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from '../store';
-import { createSelector } from 'reselect';
+import { createSelector } from 'homebrew-redux';
 import { selectCounter } from './selectors';
 import Counter from './Counter';
 import { up, down, remove } from './actions';

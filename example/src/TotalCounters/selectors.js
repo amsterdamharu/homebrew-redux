@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from 'homebrew-redux';
 import { selectCounters } from '../shared/selectors';
 export const selectTotalCounters = createSelector(
   selectCounters,

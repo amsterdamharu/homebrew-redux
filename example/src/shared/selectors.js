@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from 'homebrew-redux';
 
 export const selectCounters = createSelector(
   state => state,

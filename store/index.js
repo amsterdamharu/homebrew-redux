@@ -119,3 +119,33 @@ export const combineReducers = reducers =>
       ),
     };
   };
+//@todo: document and test memoize
+export const memoize = fn => {
+  let lastResult,
+    lastArguments = [{}];
+  return (...currentArgs) => {
+    const sameArgs =
+      currentArgs.length === lastArguments.length &&
+      lastArguments.reduce(
+        (result, lastArg, index) =>
+          result && Object.is(lastArg, currentArgs[index]),
+        true
+      );
+    if (sameArgs) {
+      return lastResult;
+    }
+    lastResult = fn.apply(null, currentArgs);
+    lastArguments = currentArgs;
+    return lastResult;
+  };
+};
+//@todo: document and test createSelector
+export const createSelector = (...functions) => {
+  const lastFunction = memoize(functions.pop());
+  return (...args) => {
+    const argsForLastFunction = functions.map(fn =>
+      fn.apply(null, args)
+    );
+    return lastFunction.apply(null, argsForLastFunction);
+  };
+};

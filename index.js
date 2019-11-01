@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.combineReducers = exports.createStoreProvider = exports.compose = exports.applyMiddleware = exports.createStore = void 0;
+exports.createSelector = exports.memoize = exports.combineReducers = exports.createStoreProvider = exports.compose = exports.applyMiddleware = exports.createStore = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -178,6 +178,52 @@ var combineReducers = function combineReducers(reducers) {
       return _objectSpread({}, result, _defineProperty({}, key, reducer(state, action)));
     }, {}));
   };
-};
+}; //@todo: document and test memoize
+
 
 exports.combineReducers = combineReducers;
+
+var memoize = function memoize(fn) {
+  var lastResult,
+      lastArguments = [{}];
+  return function () {
+    for (var _len3 = arguments.length, currentArgs = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+      currentArgs[_key3] = arguments[_key3];
+    }
+
+    var sameArgs = currentArgs.length === lastArguments.length && lastArguments.reduce(function (result, lastArg, index) {
+      return result && Object.is(lastArg, currentArgs[index]);
+    }, true);
+
+    if (sameArgs) {
+      return lastResult;
+    }
+
+    lastResult = fn.apply(null, currentArgs);
+    lastArguments = currentArgs;
+    return lastResult;
+  };
+}; //@todo: document and test createSelector
+
+
+exports.memoize = memoize;
+
+var createSelector = function createSelector() {
+  for (var _len4 = arguments.length, functions = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+    functions[_key4] = arguments[_key4];
+  }
+
+  var lastFunction = memoize(functions.pop());
+  return function () {
+    for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+      args[_key5] = arguments[_key5];
+    }
+
+    var argsForLastFunction = functions.map(function (fn) {
+      return fn.apply(null, args);
+    });
+    return lastFunction.apply(null, argsForLastFunction);
+  };
+};
+
+exports.createSelector = createSelector;
